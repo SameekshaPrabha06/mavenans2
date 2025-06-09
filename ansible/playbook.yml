@@ -1,0 +1,14 @@
+- name: deploy
+  hosts: web
+  become: yes
+  tasks:
+    - name: copy war 
+      copy:
+        src: "/var/snap/jenkins/4874/worksapce/mavenans/target/mavenans.war"
+        dest: "/opt/tomcat/webapps/mavenans.war"
+        remote_src: no
+       
+    - name: restart tomcat
+      systemd:
+        name: tomcat
+        state: restarted
